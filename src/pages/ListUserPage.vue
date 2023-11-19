@@ -199,13 +199,14 @@ export default defineComponent({
       const headers = {
         "x-access-token": this.storeLogUser.accessToken,
       };
-      console.log("headers:" + JSON.stringify( headers))
-      this.$api.get("/api/auth", { headers }).then((res) => {
+      console.log("headers:" + JSON.stringify(headers))
+      
+      this.$api.get("/api/auth/", { headers }).then((res) => {
           if (res.status == 200) {
             res.data.forEach((item, key) => {
               if (item.img != null) {
                 res.data[key].img =
-                  this.$RESTAPI + "/file/" + res.data[key].img;
+                  this.$RESTAPI + "/api/file/" + res.data[key].img;
               }
             });
             this.rows = res.data;
@@ -217,9 +218,9 @@ export default defineComponent({
             type: "negative",
             message: "Unauthorized",
           });
-          // this.storeLogUser.clearStorage();
-          // this.$router.push("/");
+         
         });
+      // console.log(this.rows);
     },
     editRecord(record) {
       this.input = record;
@@ -277,6 +278,7 @@ export default defineComponent({
     onCancelEdit() {
       this.getAllUsers();
     },
+    
     onEdit() {
       // console.log("this is onEdit method");
       if (this.uploadFile == "") this.uploadFile = null;
@@ -286,7 +288,7 @@ export default defineComponent({
           "Content-Type": "multipart/form-data",
         };
         const formData = new FormData();
-        formData.append("singlefile", this.uploadFile);
+        formData.append("singlefile", this.uploadFile); 
         this.$api.post("/api/file/upload", formData, { headers }).then((response) => {
             if (response.status == 200) {
               // call user edit API
@@ -300,18 +302,17 @@ export default defineComponent({
           });
       } else {
         // NOT upload any images
+        
         this.submitEditData();
       }
       this.getAllUsers;
     },
-    getFileName() {
-      return filepath.substr(filepath.lastIndexOf("/") + 1);
-    },
+   
     submitEditData(filename) {
       let img = "";
       if (filename == null) {
         if (this.input.img == null) img = null;
-        else img = this.getFileName(this.input.img);
+        else img = this.input.img;
       } else img = filename;
       const data = {
         fullname: this.input.fullname,
@@ -325,7 +326,7 @@ export default defineComponent({
           if (res.status == 200) {
             Notify.create({
               type: "positive",
-              message: "Updated user ID: " + res.data.id,
+              message: "Updated user ID: " + res.data.id + "please reauthorize",
             });
             if (this.storeLogUser.userid == res.data.id) {
               this.storeLogUser.fullname = res.data.fullname;

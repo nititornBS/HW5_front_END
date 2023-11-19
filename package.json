@@ -12,6 +12,7 @@
     "dev": "quasar dev",
     "build": "quasar build",
     "deploy": "vercel"
+
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",

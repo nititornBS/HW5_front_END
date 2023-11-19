@@ -91,7 +91,7 @@
             this.storeLogUser.accessToken = res.data.accessToken;
               if (res.data.img != null) { 
                   console.log(res.data.img);
-              this.storeLogUser.avatar = this.$RESTAPI + "/file/" + res.data.img;
+              this.storeLogUser.avatar = this.$RESTAPI + "/api/file/" + res.data.img;
             }
             else{
               this.storeLogUser.avatar = "default-avatar.png";

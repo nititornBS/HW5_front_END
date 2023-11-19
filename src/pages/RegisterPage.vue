@@ -260,7 +260,7 @@ export default defineComponent({
               this.storeLogUser.fullname = response.data.fullname;
               this.storeLogUser.accessToken = response.data.accessToken;
               if(response.data.img != null){
-                this.storeLogUser.avatar = this.$RESTAPI + "/file/" + response.data.img;
+                this.storeLogUser.avatar = this.$RESTAPI + "/api/file/" + response.data.img;
               } else{
                 this.storeLogUser.avatar = "default-avatar.png";
               }
