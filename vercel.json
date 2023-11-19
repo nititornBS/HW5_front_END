@@ -1,6 +1,12 @@
 {
-    "routes": [
-        {"handle": "filesystem"},
-        {"src": "/.*", "dest": "/"}
-    ]
+    "version": 2,
+    "name": "manage_account_api",
+    "builds": [{
+        "src": "server.js", 
+        "use": "@vercel/node"
+    }],
+    "routes": [{
+        "src": "/(.*)",
+        "dest": "/server.js"
+    }]
 }
